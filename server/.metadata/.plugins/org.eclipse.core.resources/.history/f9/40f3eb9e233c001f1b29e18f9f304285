@@ -1,0 +1,5 @@
+package com.springBoot.moviesReview;
+
+public class MovieService {
+
+}
