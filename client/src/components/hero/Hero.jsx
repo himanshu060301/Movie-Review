@@ -8,9 +8,7 @@ import Button from 'react-bootstrap/Button';
 
 
 const Hero = ({movies}) => {
-
     const navigate = useNavigate();
-
     function reviews(movieId){
         navigate(`/Reviews/${movieId}`);
     }

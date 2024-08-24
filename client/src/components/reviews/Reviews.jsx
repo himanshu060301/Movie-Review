@@ -35,7 +35,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
   return (
     <Container>
         <Row>
-            <Col><h3>Reviews</h3></Col>
+            <Col><h3 style={{ color: '#0dcaf0'}} >Reviews</h3></Col>
         </Row>
         <Row className="mt-2">
             <Col>
@@ -46,7 +46,12 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
                     <>
                         <Row>
                             <Col>
-                                <ReviewForm handleSubmit={addReview} revText={revText} labelText = "Write a Review?" />  
+                            <ReviewForm 
+                                handleSubmit={addReview} 
+                                revText={revText} 
+                                labelText="Write a Review?" 
+                                defaultValue="Enter your review here..."
+                            />
                             </Col>
                         </Row>
                         <Row>
