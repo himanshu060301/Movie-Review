@@ -25,7 +25,6 @@ return (
                     <NavLink className ="nav-link" to="/watchList">Watch List</NavLink>      
                 </Nav>
                 <NavLink className ="nav-link" to="/login"><Button variant="outline-info" className="me-2">Login</Button></NavLink>
-                <NavLink className ="nav-link" to="/register"><Button variant="outline-info">Register</Button></NavLink>
             </Navbar.Collapse>
         </Container>
     </Navbar>

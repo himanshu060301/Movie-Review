@@ -9,7 +9,7 @@
 	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 }
 .main{
-	width: 350px;
+	width: 400px;
 	height: 500px;
 	background: red;
 	overflow: hidden;
@@ -36,7 +36,7 @@
 	transition: .5s ease-in-out;
 }
 .inputstyle{
-	width: 60%;
+	width: 65%;
 	height: 10px;
 	background: #e0dede;
 	justify-content: center;
@@ -48,7 +48,7 @@
 	border-radius: 5px;
 }
 .btnstyle{
-	width: 60%;
+	width: 65%;
 	height: 40px;
 	margin: 10px auto;
 	justify-content: center;

@@ -1,34 +1,69 @@
-import React from 'react';
-import "./login.css";
+import React, { useState } from 'react';
+import axios from 'axios';
+import {useNavigate} from "react-router-dom";
+import './login.css';
 
 const Login = () => {
+  const [credentials, setCredentials] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const navigate = useNavigate()
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setCredentials((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const queryParams = new URLSearchParams(credentials).toString();
+      const response = await axios.get(`/api/v1/login?${queryParams}`);
+      navigate("/");
+    } catch (err) {
+      console.error('Login error:', err);
+    }
+  };
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('/api/v1/signUp', credentials);
+      alert('Sign up successful!, Login now');
+    } catch (err) {
+      console.error('Sign-up error:', err);
+    }
+  };
+
   return (
-    <div class="form">
-      <div class="main">  	
-        <input class="inputstyle" type="checkbox" id="chk" aria-hidden="true" />
+    <div className="form">
+      <div className="main">
+        <input className="inputstyle" type="checkbox" id="chk" aria-hidden="true" />
 
-        <div class="signup">
+        <div className="signup">
           <form>
-            <label class="labelstyle"  for="chk" aria-hidden="true">Sign up</label>
-            <input class="inputstyle" type="text" name="txt" placeholder="User name" required="" />
-            <input class="inputstyle" type="email" name="email" placeholder="Email" required="" />
-            <input class="inputstyle" type="password" name="broj" placeholder="Password" required="" />
-            <input class="inputstyle" type="password" name="Rewritepswd" placeholder="Re-enter Password" required="" />
-            <button class="btnstyle">Sign up</button>
+            <label className="labelstyle" htmlFor="chk" aria-hidden="true">Sign up</label>
+            <input className="inputstyle" type="text" id="name" placeholder="User name" required onChange={handleChange} />
+            <input className="inputstyle" type="email" id="email" placeholder="Email" required onChange={handleChange} />
+            <input className="inputstyle" type="password" id="password" placeholder="Password" required onChange={handleChange} />
+            <button className="btnstyle" type="button" onClick={handleSignUp}>Sign up</button>
           </form>
         </div>
 
-        <div class="login">
+        <div className="login">
           <form>
-            <label class="labelstyle" for="chk" aria-hidden="true">Login</label>
-            <input class="inputstyle" type="email" name="email" placeholder="Email" required="" />
-            <input class="inputstyle" type="password" name="pswd" placeholder="Password" required="" />
-            <button class="btnstyle">Login</button>
+            <label className="labelstyle" htmlFor="chk" aria-hidden="true">Login</label>
+            <input className="inputstyle" type="email" id="email" placeholder="Email" required onChange={handleChange} />
+            <input className="inputstyle" type="password" id="password" placeholder="Password" required onChange={handleChange} />
+            <button className="btnstyle" type="button" onClick={handleLogin}>Login</button>
           </form>
         </div>
+      </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
