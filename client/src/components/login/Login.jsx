@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
+import { LoginContext } from '../context/LoginContext';
 import './login.css';
 
 const Login = () => {
@@ -10,7 +11,8 @@ const Login = () => {
     password: '',
   });
 
-  const navigate = useNavigate()
+  const loginContext=useContext(LoginContext);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -22,6 +24,7 @@ const Login = () => {
     try {
       const queryParams = new URLSearchParams(credentials).toString();
       const response = await axios.get(`/api/v1/login?${queryParams}`);
+      loginContext.setIsActive(response ? true : false);
       navigate("/");
     } catch (err) {
       console.error('Login error:', err);

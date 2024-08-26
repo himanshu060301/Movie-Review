@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom';
 import {Container, Row, Col} from 'react-bootstrap';
 import ReviewForm from '../reviewForm/ReviewForm';
 import axios from 'axios';
+import {useNavigate} from "react-router-dom";
 
 
 const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
@@ -11,6 +12,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
     const revText = useRef();
     let params = useParams();
     const movieId = params.movieId;
+    const navigate = useNavigate();    
 
     useEffect(()=>{
         getMovieData(movieId);
@@ -24,11 +26,12 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
         {
             const response = await axios.post("/api/v1/reviews",{reviewBody:rev.value,imdbId:movieId});
             const updatedReviews = [...reviews, {body:rev.value}];
-
-            rev.value = "";    
+            
             setReviews(updatedReviews);
+            console.log('updated');
+            navigate('/');
         }catch(err){
-            console.error(err);
+            console.log(err);
         }
     }
 
@@ -38,8 +41,8 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
             <Col><h3 style={{ color: '#0dcaf0'}} >Reviews</h3></Col>
         </Row>
         <Row className="mt-2">
-            <Col>
-                <img src={movie?.poster} alt="" />
+            <Col key={movie?.imdbId}>
+                <img src={movie?.poster} alt=""/>
             </Col>
             <Col>
                 {
@@ -50,7 +53,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
                                 handleSubmit={addReview} 
                                 revText={revText} 
                                 labelText="Write a Review?" 
-                                defaultValue="Enter your review here..."
+                                placeholder="Enter your review here..."
                             />
                             </Col>
                         </Row>
@@ -60,15 +63,16 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
                     </>
                 }
                 {reviews?.map((r) => {
+                    //console.log(r._id+"vasj");
                     return(
-                        <>
-                            <Row>
-                                <Col>{r.body}</Col>
+                        <div key={r._id}>
+                            <Row >
+                                <Col style={{color:'white'}}>* {r.body}</Col>
                             </Row>
                             <Row>
                                 <Col><hr /></Col>
                             </Row>                                
-                        </>
+                        </div>
                     )
                 })}
             </Col>
