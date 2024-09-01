@@ -65,15 +65,10 @@
 .add-button-icon{
     padding:0px;
     margin:0px 10px;
-    color:rgb(42, 69, 145);
+    color:rgb(126, 25, 169);
     font-size: 3rem;
     transition: 0.3s;
     cursor: pointer;
-}
-
-.add-button-icon:hover{
-    font-size: 4rem;
-    color:white;
 }
 
 @media only screen and (max-width: 800px) {

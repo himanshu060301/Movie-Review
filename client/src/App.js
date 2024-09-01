@@ -32,7 +32,6 @@ function App() {
     {
         const response = await axios.get(`/api/v1/movies/${movieId}`);
         const singleMovie = response.data;
-
         setMovie(singleMovie);
         setReviews(singleMovie.review);
     }catch (error){

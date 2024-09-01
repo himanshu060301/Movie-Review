@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria; 
 import org.springframework.data.mongodb.core.query.Update; 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service 
 public class ReviewService {
@@ -15,6 +16,7 @@ public class ReviewService {
 	@Autowired 
 	private MongoTemplate mongoTemplate;
 	
+	@Transactional
 	public Review createReview(String reviewBody, String imdbId){ 
 		Review review=reviewRepository.insert(new Review(reviewBody));
 	

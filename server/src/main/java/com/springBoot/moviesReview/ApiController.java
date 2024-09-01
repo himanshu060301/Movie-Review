@@ -28,6 +28,9 @@ public class ApiController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private WatchlistService watchlistService;
     
 	private SignUp signUp; 
 
@@ -62,4 +65,15 @@ public class ApiController {
 		return new ResponseEntity<Review>(reviewService.createReview(payload.get("reviewBody"),
 				payload.get("imdbId")),HttpStatus.CREATED); 
 	} 
+
+	@PostMapping("/addToWatchlist") 
+	public ResponseEntity<Watchlist> addToWatchlist(@RequestBody Map<String,String> payload) { 
+		return new ResponseEntity<Watchlist>(watchlistService.addToWatchlist(payload.get("imdbId"),
+				payload.get("title"), payload.get("backdrops"), payload.get("genres")),HttpStatus.CREATED); 
+	} 
+
+	@GetMapping("/watchlist") 
+	public ResponseEntity<List<Watchlist>> getWatchlistMovies() {	
+		return new ResponseEntity<List<Watchlist>>(watchlistService.getWatchlistMovies(),HttpStatus.OK);
+	}
 }
