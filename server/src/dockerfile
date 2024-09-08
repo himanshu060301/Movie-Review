@@ -1,6 +1,26 @@
-FROM openjdk:8-jdk-alpine
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+# FROM openjdk:17-jdk-alpine
+# RUN addgroup -S spring && adduser -S spring -G spring
+# USER spring:spring
+# ARG JAR_FILE=target/*.jar
+# COPY ${JAR_FILE} app.jar
+# ENTRYPOINT ["java","-jar","/app.jar"]
+
+
+
+# Use a base image that contains JDK 17 (or the version you need)
+FROM openjdk:17-jdk-alpine
+
+# Set the working directory inside the container
+WORKDIR /src
+
+# Copy the backend contents into the container
+COPY . .
+
+# Build the backend application (assuming you use Maven)
+RUN ./mvnw clean package -DskipTests
+
+# Expose the port that your application will run on
+EXPOSE 8080
+
+# Run the backend application
+CMD ["java", "-Dserver.port=$PORT", "-jar", "target/moviesReview-0.0.1-SNAPSHOT.jar"]
