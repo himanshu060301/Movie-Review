@@ -11,10 +11,14 @@
 FROM openjdk:17-jdk-alpine
 
 # Set the working directory inside the container
-WORKDIR /src
+WORKDIR /app
 
 # Copy the backend contents into the container
 COPY . .
+
+# Give executable permission to the Maven wrapper
+RUN chmod +x ./mvnw
+
 # Build the backend application (assuming you use Maven)
 RUN ./mvnw clean package -DskipTests
 
