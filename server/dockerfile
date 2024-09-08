@@ -15,7 +15,6 @@ WORKDIR /src
 
 # Copy the backend contents into the container
 COPY . .
-
 # Build the backend application (assuming you use Maven)
 RUN ./mvnw clean package -DskipTests
 
