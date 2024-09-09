@@ -1,0 +1,5 @@
+/  /index.html  200 
+/login  /index.html  200 
+/reviews  /index.html  200 
+/movie/*  /index.html  200 
+/api/*  https://movie-review-server-y8sx.onrender.com  200
