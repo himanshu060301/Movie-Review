@@ -15,15 +15,17 @@ const Hero = ({movies}) => {
     const navigate = useNavigate();
     const [alert, setAlert] = useState(null);
     
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
     function reviews(movieId) {
-        loginState.isActive ? navigate(`/Reviews/${movieId}`) : navigate('/login');
+        loginState.isActive ? navigate(`${API_BASE_URL}/Reviews/${movieId}`) : navigate('/login');
     }
 
     const addToWatchlist = async (movieId, title, backdrops, genres) => {
         const genresString = genres.join(",");
         const backdropsString = backdrops.join(",");
         try {
-            const response = await axios.post("/api/v1/addToWatchlist", {
+            const response = await axios.post(`${API_BASE_URL}/api/v1/addToWatchlist`, {
                 imdbId: movieId, 
                 title: title, 
                 backdrops: backdropsString, 
@@ -31,12 +33,12 @@ const Hero = ({movies}) => {
             });
             if (response) {
                 setAlert({ type: 'success', message: 'Movie added to watchlist successfully!' });
-                setTimeout(() => setAlert(null), 3000); // Clear alert after 3 seconds
+                setTimeout(() => setAlert(null), 3000); 
             }
         } catch (err) {
             console.log(err);
             setAlert({ type: 'error', message: 'Failed to add movie to watchlist.' });
-            setTimeout(() => setAlert(null), 3000); // Clear alert after 3 seconds
+            setTimeout(() => setAlert(null), 3000); 
         }
     }
 

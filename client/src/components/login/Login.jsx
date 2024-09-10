@@ -14,6 +14,8 @@ const Login = () => {
   const loginContext=useContext(LoginContext);
   const navigate = useNavigate();
 
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setCredentials((prev) => ({ ...prev, [id]: value }));
@@ -23,7 +25,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const queryParams = new URLSearchParams(credentials).toString();
-      const response = await axios.get(`/api/v1/login?${queryParams}`);
+      const response = await axios.get(`${API_BASE_URL}/api/v1/login?${queryParams}`);
       loginContext.setIsActive(response ? true : false);
       navigate("/");
     } catch (err) {
@@ -34,7 +36,7 @@ const Login = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/v1/signUp', credentials);
+      const response = await axios.post(`${API_BASE_URL}/api/v1/signUp`, credentials);
       alert('Sign up successful!, Login now');
     } catch (err) {
       console.error('Sign-up error:', err);

@@ -17,10 +17,12 @@ function App() {
   const [movie, setMovie] = useState();
   const [reviews, setReviews] = useState([]);
 
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
   const getMovies = async () =>{
     try
     {
-      const response = await axios.get("/api/v1/movies");
+      const response = await axios.get(`${API_BASE_URL}/api/v1/movies`);
       setMovies(response.data);
     }catch(err){
       console.log(err);
@@ -30,7 +32,7 @@ function App() {
   const getMovieData = async (movieId) => {
     try 
     {
-        const response = await axios.get(`/api/v1/movies/${movieId}`);
+        const response = await axios.get(`${API_BASE_URL}/api/v1/movies/${movieId}`);
         const singleMovie = response.data;
         setMovie(singleMovie);
         setReviews(singleMovie.review);

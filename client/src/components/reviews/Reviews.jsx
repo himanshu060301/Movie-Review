@@ -12,7 +12,9 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
     const revText = useRef();
     let params = useParams();
     const movieId = params.movieId;
-    const navigate = useNavigate();    
+    const navigate = useNavigate(); 
+    
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 
     useEffect(()=>{
         getMovieData(movieId);
@@ -24,7 +26,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
 
         try
         {
-            const response = await axios.post("/api/v1/reviews",{reviewBody:rev.value,imdbId:movieId});
+            const response = await axios.post(`${API_BASE_URL}/api/v1/reviews`,{reviewBody:rev.value,imdbId:movieId});
             const updatedReviews = [...reviews, {body:rev.value}];
             
             setReviews(updatedReviews);
@@ -63,7 +65,6 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
                     </>
                 }
                 {reviews?.map((r) => {
-                    //console.log(r._id+"vasj");
                     return(
                         <div key={r._id}>
                             <Row >
