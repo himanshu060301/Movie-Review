@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@CrossOrigin(origins = "https://movie-review-4vb0.onrender.com")
+@CrossOrigin(origins = {"https://movie-review-4vb0.onrender.com", "http://localhost:3000"})
 @RequestMapping("/api/v1")
 public class ApiController {
 
