@@ -10,6 +10,7 @@ import Trailer from './components/trailer/Trailer';
 import Reviews from './components/reviews/Reviews';
 import NotFound from './components/notFound/NotFound';
 import axios from 'axios';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
   const [reviews, setReviews] = useState([]);
 
   const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
-  console.log(API_BASE_URL+"hjkl;");
+  console.log(API_BASE_URL);
 
   const getMovies = async () =>{
     try
@@ -59,6 +60,7 @@ function App() {
             <Route path="*" element = {<NotFound/>}></Route>
           </Route>
       </Routes>
+      <Toaster />
     </div>
   );
 }

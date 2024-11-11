@@ -18,7 +18,8 @@ const Hero = ({movies}) => {
     const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 
     function reviews(movieId) {
-        loginState.isActive ? navigate(`${API_BASE_URL}/Reviews/${movieId}`) : navigate('/login');
+        console.log(`/Reviews/${movieId}`);
+        loginState.isActive ? navigate(`/Reviews/${movieId}`) : navigate('/login');
     }
 
     const addToWatchlist = async (movieId, title, backdrops, genres) => {

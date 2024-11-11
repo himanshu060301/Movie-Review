@@ -15,8 +15,13 @@ public class UserService {
     @Autowired 
     private MongoTemplate mongoTemplate;
 
-    public User userSignUp(SignUp data){
-        return userRepository.insert(new User(data.getName(),data.getEmail(),data.getPassword()));
+    public Boolean userSignUp(SignUp data){
+        User user=validateUser(data);
+        if(user!=null) 
+            return false;
+        
+        userRepository.insert(new User(data.getName(),data.getEmail(),data.getPassword()));
+        return true;
     }
 
     public User validateUser(SignUp data){

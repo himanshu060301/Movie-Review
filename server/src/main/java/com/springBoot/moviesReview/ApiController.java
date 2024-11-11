@@ -37,12 +37,12 @@ public class ApiController {
 	private SignUp signUp; 
 
 	@PostMapping("/signUp") 
-	public ResponseEntity<User> userSignUp(@RequestBody SignUp response){
+	public Boolean userSignUp(@RequestBody SignUp response){
 		signUp = new SignUp();
 		signUp.setName(response.getName());
 		signUp.setEmail(response.getEmail());
 		signUp.setPassword(response.getPassword());
-		return new ResponseEntity<User>(userService.userSignUp(signUp),HttpStatus.CREATED);
+		return userService.userSignUp(signUp);
 	}
 
 	@GetMapping("/login")

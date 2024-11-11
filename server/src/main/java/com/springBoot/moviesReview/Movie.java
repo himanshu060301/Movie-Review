@@ -25,7 +25,7 @@ public class Movie {
 	private String poster;
 	private List<String> genres;
 	private List<String> backdrops;
-	@DBRef 
+	@DBRef(lazy = false)
 	private List<Review> review;
 	
 	public Movie(String imdbId, String title, String releaseDate, String trailerLink, String poster,
