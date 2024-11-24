@@ -8,7 +8,7 @@ const ReviewForm = ({handleSubmit,revText,labelText,placeholder}) => {
             <Form.Label>{labelText}</Form.Label>
             <Form.Control ref={revText} as="textarea" rows={3} placeholder={placeholder} />
         </Form.Group>
-        <Button variant="outline-info" onClick={handleSubmit}>Submit</Button>
+        <Button variant="outline-info" onClick={handleSubmit} style={{marginBottom:"20px"}}>Submit</Button>
     </Form>   
 
   )

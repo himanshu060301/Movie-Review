@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@CrossOrigin(origins = {"https://movie-review-4vb0.onrender.com", "http://localhost:3000"})
+@CrossOrigin(origins = {"https://movie-review-4vb0.onrender.com", "http://localhost:3000"}, allowCredentials = "true")
 @RequestMapping("/api/v1")
 public class ApiController {
 
@@ -45,11 +47,10 @@ public class ApiController {
 		return userService.userSignUp(signUp);
 	}
 
-	@GetMapping("/login")
+	@PostMapping("/loginWithMail")
 	public ResponseEntity<User> validateUser(@RequestParam String email, @RequestParam String password){
 		signUp = new SignUp(email,password);
 		return new ResponseEntity<User>(userService.validateUser(signUp),HttpStatus.OK);
-		
 	}
 
     @GetMapping("/movies")
@@ -77,5 +78,18 @@ public class ApiController {
 	@GetMapping("/watchlist") 
 	public ResponseEntity<List<Watchlist>> getWatchlistMovies() {	
 		return new ResponseEntity<List<Watchlist>>(watchlistService.getWatchlistMovies(),HttpStatus.OK);
+	}
+	
+	@GetMapping("/user")
+	public Map<String, Object> getUserDetails(@AuthenticationPrincipal OAuth2User principal) {
+	    if (principal == null) {
+	        return Map.of("isAuthenticated", false);
+	    }
+
+	    return Map.of(
+	        "isAuthenticated", true,
+	        "email", principal.getAttribute("email"),
+	        "name", principal.getAttribute("name")
+	    );
 	}
 }

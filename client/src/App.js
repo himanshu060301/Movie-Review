@@ -1,5 +1,5 @@
 import './App.css';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import Layout from './components/Layout';
 import {Routes, Route} from 'react-router-dom';
 import Home from './components/home/Home';
@@ -9,8 +9,10 @@ import Header from './components/header/Header';
 import Trailer from './components/trailer/Trailer';
 import Reviews from './components/reviews/Reviews';
 import NotFound from './components/notFound/NotFound';
+import { LoginContext } from './context/LoginContext';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
+import toast from "react-hot-toast";
 
 function App() {
 
@@ -18,6 +20,7 @@ function App() {
   const [movie, setMovie] = useState();
   const [reviews, setReviews] = useState([]);
 
+  const loginContext=useContext(LoginContext);
   const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
   console.log(API_BASE_URL);
 
@@ -43,7 +46,21 @@ function App() {
     }
   }
 
+  const handleUserLogin=async()=>{
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/v1/user`, {
+        withCredentials: true, // Include cookies or authentication tokens
+      });
+
+      (response.data.isAuthenticated ) ? loginContext.setIsActive(true) : loginContext.setIsActive(false);
+    } catch (err) {
+      console.error('Login error:', err);
+      toast.error('Error in Login !!');
+    } 
+  }
+
   useEffect(() => {
+    handleUserLogin();
     getMovies();
   },[])
 

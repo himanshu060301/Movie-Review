@@ -38,13 +38,13 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
     }
 
   return (
-    <Container>
+    <Container style={{maxHeight: '90vh', overflow: 'hidden' }}>
         <Row>
             <Col><h3 style={{ color: '#0dcaf0'}} >Reviews</h3></Col>
         </Row>
         <Row className="mt-2">
             <Col key={movie?.imdbId}>
-                <img src={movie?.poster} alt=""/>
+                <img src={movie?.poster} alt="" style={{height: "80%", width: "80%"}}/>
             </Col>
             <Col>
                 {
@@ -58,9 +58,6 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
                                 placeholder="Enter your review here..."
                             />
                             </Col>
-                        </Row>
-                        <Row>
-                            <Col><hr /></Col>
                         </Row>
                     </>
                 }
@@ -78,9 +75,6 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
                 })}
             </Col>
         </Row>
-        <Row>
-            <Col><hr /></Col>
-        </Row>        
     </Container>
   )
 }

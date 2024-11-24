@@ -1,7 +1,7 @@
 import React, { useState,useContext } from 'react';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
-import { LoginContext } from '../context/LoginContext';
+import { LoginContext } from '../../context/LoginContext';
 import toast from "react-hot-toast";
 import './login.css';
 
@@ -22,11 +22,11 @@ const Login = () => {
     setCredentials((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleLogin = async (e) => {
+  const handleLoginWithEmail = async (e) => {
     e.preventDefault();
     try {
       const queryParams = new URLSearchParams(credentials).toString();
-      const response = await axios.get(`${API_BASE_URL}/api/v1/login?${queryParams}`);
+      const response = await axios.post(`${API_BASE_URL}/api/v1/loginWithMail?${queryParams}`);
       loginContext.setIsActive(response ? true : false);
       navigate("/");
     } catch (err) {
@@ -56,11 +56,23 @@ const Login = () => {
     }
   };
 
+  const handleGoogleLogin=()=>{
+    window.location.href = `${API_BASE_URL}/oauth2/authorization/google`; // This redirects to Google's OAuth2 login
+  }
+
   return (
     <div className="form">
       <div className="main">
         <input className="inputstyle" type="checkbox" id="chk" aria-hidden="true" />
-
+        <div className="login">
+          <form>
+            <label className="labelstyle" htmlFor="chk" aria-hidden="true">Login</label>
+            <input className="inputstyle" type="email" id="email" value={credentials.email} placeholder="Email" required onChange={handleChange} />
+            <input className="inputstyle" type="password" id="password" value={credentials.password} placeholder="Password" required onChange={handleChange} />
+            <button className="btnstyle" type="button" onClick={handleLoginWithEmail}>Login</button>
+            <button className="btnstyle" type="button" onClick={handleGoogleLogin}><img id="googleImg" src="/google.png" alt="Google Img" />Google</button>
+          </form>
+        </div>
         <div className="signup">
           <form>
             <label className="labelstyle" htmlFor="chk" aria-hidden="true">Sign up</label>
@@ -71,14 +83,7 @@ const Login = () => {
           </form>
         </div>
 
-        <div className="login">
-          <form>
-            <label className="labelstyle" htmlFor="chk" aria-hidden="true">Login</label>
-            <input className="inputstyle" type="email" id="email" value={credentials.email} placeholder="Email" required onChange={handleChange} />
-            <input className="inputstyle" type="password" id="password" value={credentials.password} placeholder="Password" required onChange={handleChange} />
-            <button className="btnstyle" type="button" onClick={handleLogin}>Login</button>
-          </form>
-        </div>
+        
       </div>
     </div>
   );
