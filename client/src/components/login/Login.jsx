@@ -24,6 +24,15 @@ const Login = () => {
 
   const handleLoginWithEmail = async (e) => {
     e.preventDefault();
+    if(credentials.email==""){
+      toast.error('Enter the email !!');
+      return;
+    }
+    if(credentials.password==""){
+      toast.error('Enter the password !!');
+      return;
+    }
+
     try {
       const queryParams = new URLSearchParams(credentials).toString();
       const response = await axios.post(`${API_BASE_URL}/api/v1/loginWithMail?${queryParams}`);
@@ -33,26 +42,39 @@ const Login = () => {
       console.error('Login error:', err);
       toast.error('Error in Login !!');
     }
+    
   };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post(`${API_BASE_URL}/api/v1/signUp`, credentials);
-      setCredentials({
-        name: '',
-        email: '',
-        password: '',
-      });
+    if(credentials.name==""){
+      toast.error('Enter the name !!');
+      return;
+    }
+    if(credentials.email==""){
+      toast.error('Enter the email !!');
+      return;
+    }
+    if(credentials.password==""){
+      toast.error('Enter the password !!');
+      return;
+    }
+    if(credentials.name!="" && credentials.email!="" && credentials.password!=""){
+      try {
+        const res = await axios.post(`${API_BASE_URL}/api/v1/signUp`, credentials);
+        setCredentials({
+          name: '',
+          email: '',
+          password: '',
+        });
 
-      if(res)
-        toast.success('An account with this email already exists. Please log in instead.');
-      else
-        toast.success('Sign up successful!, Login now');
-        
-    } catch (err) {
-      console.error('Sign-up error:', err);
-      toast.error('Error in Sign-up !!');
+        (res) ? toast.success('An account with this email already exists. Please log in instead.') :
+          toast.success('Sign up successful!, Login now');
+          
+      } catch (err) {
+        console.error('Sign-up error:', err);
+        toast.error('Error in Sign-up !!');
+      }
     }
   };
 

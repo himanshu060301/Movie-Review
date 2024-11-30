@@ -29,13 +29,13 @@ public class SpringConfig {
             .oauth2Login(oauth2 ->
                 oauth2
                     .loginPage("/oauth2/authorization/google")
-                    .defaultSuccessUrl("http://localhost:3000/", true)
+                    .defaultSuccessUrl("https://movie-review-4vb0.onrender.com/", true)
             )
             .sessionManagement(session -> 
                 session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Keep sessions for logged-in users
             )
             .logout(logout ->
-                logout.logoutSuccessUrl("http://localhost:3000")
+                logout.logoutSuccessUrl("https://movie-review-4vb0.onrender.com/")
             );
 
         return http.build();
