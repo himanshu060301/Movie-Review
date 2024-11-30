@@ -17,14 +17,20 @@ public class ReviewService {
 	private MongoTemplate mongoTemplate;
 	
 	@Transactional
-	public Review createReview(String reviewBody, String imdbId){ 
-		Review review=reviewRepository.insert(new Review(reviewBody));
-	
-		mongoTemplate.update(Movie.class)
-		.matching(Criteria.where("imdbId").is(imdbId)) 
-		.apply(new Update().push("review").value(review))
-		.first();
-	
+	public Review createReview(String reviewBody, String imdbId){
+		Review review = null;
+		try {
+			review=reviewRepository.save(new Review(reviewBody));
+			
+			mongoTemplate.update(Movie.class)
+			.matching(Criteria.where("imdbId").is(imdbId)) 
+			.apply(new Update().push("review").value(review))
+			.first();
+		
+		} catch (Exception e) {
+			System.out.println("Database error occurred while save the movie review.");
+		}
+		
 		return review; 
 	} 
 }

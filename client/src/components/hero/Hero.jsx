@@ -33,12 +33,12 @@ const Hero = ({movies}) => {
                     genres: genresString
                 });
                 if (response) {
-                    setAlert({ type: 'success', message: 'Movie added to watchlist successfully!' });
+                    setAlert({ type: 'success', message: 'Movie added to watchlist successfully'});
                     setTimeout(() => setAlert(null), 3000); 
                 }
             } catch (err) {
                 console.log(err);
-                setAlert({ type: 'error', message: 'Failed to add movie to watchlist.' });
+                setAlert({ type: 'error', message: 'Failed to add movie to watchlist'});
                 setTimeout(() => setAlert(null), 3000); 
             }
         }else{
@@ -59,8 +59,8 @@ const Hero = ({movies}) => {
             <Carousel>
                 {movies?.map((movie) => (
                     <Carousel.Item>
-                    <Paper key={movie.imdbId}>
-                        <div className='movie-card-container'>
+                    <Paper>
+                        <div className='movie-card-container' key={movie.imdbId}>
                             <div className="movie-card" style={{"--img": `url(${movie.backdrops[0]})`}}>
                                 <div className="movie-detail">
                                     <div className="movie-poster">

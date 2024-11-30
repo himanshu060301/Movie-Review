@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@CrossOrigin(origins = {"https://movie-review-4vb0.onrender.com"}, allowCredentials = "true")
+@CrossOrigin(origins = {"https://movie-review-4vb0.onrender.com", "http://localhost:3000"}, allowCredentials = "true")
 @RequestMapping("/api/v1")
 public class ApiController {
 
@@ -39,18 +39,17 @@ public class ApiController {
 	private SignUp signUp; 
 
 	@PostMapping("/signUp") 
-	public Boolean userSignUp(@RequestBody SignUp response){
+	public ResponseEntity<Boolean> userSignUp(@RequestBody SignUp response){
 		signUp = new SignUp();
 		signUp.setName(response.getName());
 		signUp.setEmail(response.getEmail());
 		signUp.setPassword(response.getPassword());
-		return userService.userSignUp(signUp);
+		return new ResponseEntity<Boolean>(userService.userSignUp(signUp),HttpStatus.OK);
 	}
 
 	@PostMapping("/loginWithMail")
-	public ResponseEntity<User> validateUser(@RequestParam String email, @RequestParam String password){
-		signUp = new SignUp(email,password);
-		return new ResponseEntity<User>(userService.validateUser(signUp),HttpStatus.OK);
+	public ResponseEntity<Boolean> validateUser(@RequestParam String email, @RequestParam String password){
+		return new ResponseEntity<Boolean>(userService.validateUser(email,password),HttpStatus.OK);
 	}
 
     @GetMapping("/movies")
