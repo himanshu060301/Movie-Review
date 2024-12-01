@@ -23,7 +23,14 @@ public class WatchlistService {
     }
     
     public List<Watchlist> getWatchlistMovies() {
-		return watchlistRepository.findAll();
+    	List<Watchlist> allMovies = watchlistRepository.findAll();
+
+        Map<String, Watchlist> movieMap = new LinkedHashMap<>();
+        for (Watchlist movie : allMovies) {
+            movieMap.put(movie.getTitle(), movie); 
+        }
+
+        return new ArrayList<>(movieMap.values());
 	}
 
 }

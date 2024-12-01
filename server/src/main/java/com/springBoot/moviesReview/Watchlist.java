@@ -29,4 +29,36 @@ public class Watchlist {
         this.backdrops = backdrops;
         this.genres = genres;
     }
+
+	public String getImdbId() {
+		return imdbId;
+	}
+
+	public void setImdbId(String imdbId) {
+		this.imdbId = imdbId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public List<String> getBackdrops() {
+		return backdrops;
+	}
+
+	public void setBackdrops(List<String> backdrops) {
+		this.backdrops = backdrops;
+	}
+
+	public List<String> getGenres() {
+		return genres;
+	}
+
+	public void setGenres(List<String> genres) {
+		this.genres = genres;
+	}
 }

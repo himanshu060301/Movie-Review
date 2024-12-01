@@ -90,7 +90,6 @@ const Hero = ({movies}) => {
                     </Paper>
                     </Carousel.Item>
                 ))}
-                
             </Carousel>
         </div>
     )
