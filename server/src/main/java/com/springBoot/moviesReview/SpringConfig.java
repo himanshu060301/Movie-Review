@@ -37,12 +37,14 @@ public class SpringConfig {
                 oauth2
                     .loginPage("/oauth2/authorization/google")
                     .defaultSuccessUrl("https://movie-review-4vb0.onrender.com/", true)
+                    .defaultSuccessUrl("http://localhost:3000/", true)
             )
             .sessionManagement(session -> 
                 session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Keep sessions for logged-in users
             )
             .logout(logout ->
-                logout.logoutSuccessUrl("https://movie-review-4vb0.onrender.com/")
+                //logout.logoutSuccessUrl("https://movie-review-4vb0.onrender.com/")
+                logout.logoutSuccessUrl("http://localhost:3000/")
             );
 
         return http.build();
@@ -52,7 +54,8 @@ public class SpringConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-        configuration.addAllowedOrigin("https://movie-review-4vb0.onrender.com"); 
+        configuration.addAllowedOrigin("https://movie-review-4vb0.onrender.com");
+        configuration.addAllowedOrigin("http://localhost:3000"); 
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

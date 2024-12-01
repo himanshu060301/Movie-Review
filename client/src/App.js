@@ -22,7 +22,6 @@ function App() {
 
   const loginContext=useContext(LoginContext);
   const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
-  console.log(API_BASE_URL);
 
   const getMovies = async () =>{
     try
@@ -37,10 +36,10 @@ function App() {
   const getMovieData = async (movieId) => {
     try 
     {
-        const response = await axios.get(`${API_BASE_URL}/api/v1/movies/${movieId}`);
-        const singleMovie = response.data;
-        setMovie(singleMovie);
-        setReviews(singleMovie.review);
+      const response = await axios.get(`${API_BASE_URL}/api/v1/movies/${movieId}`);
+      const singleMovie = response.data;
+      setMovie(singleMovie);
+      setReviews(singleMovie.review);
     }catch (error){
       console.error(error);
     }
@@ -52,6 +51,7 @@ function App() {
         withCredentials: true, // Include cookies or authentication tokens
       });
 
+      console.log("User Authenticated:" + response.data.isAuthenticated);
       (response.data.isAuthenticated ) ? loginContext.setIsActive(true) : loginContext.setIsActive(false);
     } catch (err) {
       console.error('Login error:', err);

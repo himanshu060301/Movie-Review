@@ -8,7 +8,6 @@ const WatchList = () => {
 
   const getWatchlistMovies= async()=>{
     const response = await axios.get(`${API_BASE_URL}/api/v1/watchlist`);
-    console.log(response.data);
     setMovies(response.data);
   }
 
