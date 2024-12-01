@@ -1,17 +1,13 @@
 import React,{useState,useEffect} from 'react';
 import axios from 'axios';
-import { Paper } from '@mui/material';
 import './watchlist.css';
 
 const WatchList = () => {
-  // return(
-  //   <div>Currently working on it.</div>
-  // )
-  
   const [movies,setMovies]= useState();
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 
   const getWatchlistMovies= async()=>{
-    const response = await axios.get("/api/v1/watchlist");
+    const response = await axios.get(`${API_BASE_URL}/api/v1/watchlist`);
     console.log(response.data);
     setMovies(response.data);
   }
