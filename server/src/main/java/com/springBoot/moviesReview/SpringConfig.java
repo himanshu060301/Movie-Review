@@ -35,7 +35,7 @@ public class SpringConfig {
             )
             .oauth2Login(oauth2 ->
                 oauth2
-                    .defaultSuccessUrl("https://movie-review-4vb0.onrender.com/", true)
+                    .defaultSuccessUrl("https://movie-review-4vb0.onrender.com/")
             )
             .sessionManagement(session -> 
                 session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Keep sessions for logged-in users
