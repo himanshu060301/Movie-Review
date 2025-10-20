@@ -51,7 +51,7 @@ public class SpringConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-        configuration.addAllowedOrigin("https://movie-review-4vb0.onrender.com");
+        configuration.addAllowedOriginPattern("https://movie-review-4vb0.onrender.com");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
