@@ -84,7 +84,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `${API_BASE_URL}/login/oauth2/code/google`; // Correct OAuth2 login URL
+    window.location.href = `${API_BASE_URL}/oauth2/authorization/google`;
   }
 
   return (
