@@ -34,11 +34,12 @@ public class SpringConfig {
                     .anyRequest().authenticated()
             )
             .oauth2Login(oauth2 ->
-                oauth2
-                    .defaultSuccessUrl("https://movie-review-4vb0.onrender.com/")
+                oauth2.successHandler((request,response,authentication)->{
+                    response.sendRedirect("https://movie-review-4vb0.onrender.com/");
+                })
             )
             .sessionManagement(session -> 
-                session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Keep sessions for logged-in users
+                session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS) // Keep sessions for logged-in users
             )
             .logout(logout ->
                 logout.logoutSuccessUrl("https://movie-review-4vb0.onrender.com/")
