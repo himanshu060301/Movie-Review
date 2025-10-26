@@ -16,6 +16,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+  const usernameRegex = /^[a-zA-Z0-9_]{3,16}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -28,8 +31,17 @@ const Login = () => {
       toast.error('Enter the email');
       return;
     }
+    else if(!emailRegex.test(credentials.email)){
+      toast.error('Invalid email');
+      return;
+    }
+
     if(credentials.password===""){
       toast.error('Enter the password');
+      return;
+    }
+    else if(!passwordRegex.test(credentials.password)){
+      toast.error('Invalid password. Please use at least 8 characters with a mix of uppercase, lowercase, numbers, and special symbols.');
       return;
     }
 
@@ -56,30 +68,43 @@ const Login = () => {
       toast.error('Enter the name');
       return;
     }
+    else if(!usernameRegex.test(credentials.username)){
+      toast.error('Invalid username');
+      return;
+    }
+
     if(credentials.email===""){
       toast.error('Enter the email');
       return;
     }
+    else if(!emailRegex.test(credentials.email)){
+      toast.error('Invalid email');
+      return;
+    }
+
     if(credentials.password===""){
       toast.error('Enter the password');
       return;
     }
-    if(credentials.name!=="" && credentials.email!=="" && credentials.password!==""){
-      try {
-        const res = await axios.post(`${API_BASE_URL}/api/v1/signUp`, credentials);
-        setCredentials({
-          name: '',
-          email: '',
-          password: '',
-        });
+    else if(!passwordRegex.test(credentials.password)){
+      toast.error('Invalid password. Please use at least 8 characters with a mix of uppercase, lowercase, numbers, and special symbols.');
+      return;
+    }
 
-        (res.data) ? toast.success('An account with this email already exists. Please log in instead.') :
-          toast.success('Sign up successful!, Login now');
-          
-      } catch (err) {
-        console.error('Sign-up error:', err);
-        toast.error('Error in Sign-up');
-      }
+    try {
+      const res = await axios.post(`${API_BASE_URL}/api/v1/signUp`, credentials);
+      setCredentials({
+        name: '',
+        email: '',
+        password: '',
+      });
+
+      (res.data) ? toast.success('An account with this email already exists. Please log in instead.') :
+        toast.success('Sign up successful!, Login now');
+        
+    } catch (err) {
+      console.error('Sign-up error:', err);
+      toast.error('Error in Sign-up');
     }
   };
 
